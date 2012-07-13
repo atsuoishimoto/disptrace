@@ -1,0 +1,7 @@
+<div class="callstack{%if level > 1 %} callindent{%endif%}">
+    <div class="funcheader module-{{call.modulename.replace(".", "-")}} func-{{call.modulename.replace(".", "-")}}-{{call.funcname.replace(".", "-")}}">
+        <span class="modulename">{{call.modulename}}</span>
+        <span class="funcname">{{call.funcname}}</span>
+        <span class="funcmenu"><span class="clickable" onclick="javascript:hideLines('{{seq}}')" id="menu{{seq}}">collapse</span></span>
+    </div>
+    <div id="seq{{seq}}">

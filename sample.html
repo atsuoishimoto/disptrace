@@ -1,0 +1,429 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>disptrace</title>
+    <style>
+        body {
+            margin: 0 0 0 0;
+        }
+        
+        /* http://nicolasgallagher.com/micro-clearfix-hack */
+        .cf:before,
+        .cf:after {
+            content: " "; /* 1 */
+            display: table; /* 2 */
+        }
+
+        .cf:after {
+            clear: both;
+        }
+
+        .cf {
+            *zoom: 1;
+        }
+
+        #header {
+            color: white;
+            background-color: black;
+            margin: 0px 0px 0px 0px;
+            width: 100%;
+        }
+        
+        #main {
+            margin:5px 10px 5px 10px;
+        }
+        
+        #container {
+            float:left;
+            width:100%;
+            margin-right:-250px;
+        }
+
+        #leftbox {
+            float:right;
+            width:100%;
+        }
+
+        #calltrace {
+            margin: 0 250px 0 0;
+        }
+
+        #modulemenu {
+            float:right;
+            width: 240px;
+        }
+
+
+        .callstack {
+        }
+
+        .callindent {
+            margin-left:1em;
+        }
+
+        .funcheader {
+            background-color: #ECBCBC;
+            border: solid 1px;
+            padding: 3px;
+        }
+
+        .clickable {
+            cursor: pointer;
+        }
+        .clickable:hover {
+            text-decoration:underline;
+        }
+        .funcmenu {
+            float:right;
+            display: block;
+        }
+
+        .modulename {
+            font-family: monospace;
+        }
+
+        table {
+            border-collapse:collapse;
+            margin-top: 3px;
+            margin-bottom: 5px;
+        }
+
+        .funcname{
+            font-family: monospace;
+        }
+
+        .linenocell {
+            width:1px;
+            font-family: monospace;
+            padding-left: 5px;
+            padding-right: 5px;
+            text-align: right;
+            background-color: #E7ECEE;
+            border: solid 1px;
+        }
+
+        .codecell {
+            font-family: monospace;
+            padding-left: 5px;
+            white-space: pre;
+        }
+        
+        .funcbutton {
+            margin-left:1em;
+        }
+    </style>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js" type="text/javascript"></script>
+    <script language="javascript">
+    function hideLines(elemid) {
+        var elem = document.getElementById("seq"+elemid);
+        if (elem.style.display == "none") {
+            elem.style.display = "block";
+            document.getElementById("menu"+elemid).innerHTML = "collapse";
+        }
+        else {
+            elem.style.display = "none";
+            document.getElementById("menu"+elemid).innerHTML = "expand";
+        }
+    }
+    function hideTrace(src, modulename) {
+        if (src.elemhidden != 'hidden') {
+            $("."+modulename).css('display', 'none');
+            $(".btn-"+modulename).css('color', '#c0c0c0').each(function() {this.elemhidden = 'hidden';});
+        }
+        else {
+            $("."+modulename).css('display', 'block');
+            $(".btn-"+modulename).css('color', 'black').each(function() {this.elemhidden = '';});
+        }
+    }
+
+    </script>
+</head>
+<body>
+
+
+<div id="header">
+    Disptrace 2012-07-13 11:17:53.200808
+</div>
+
+<div id="main">
+
+<div id="container">
+    <div id="leftbox">
+        <div id="calltrace">
+            
+            <div class="callstack">
+    <div class="funcheader module-__main__ func-__main__-test">
+        <span class="modulename">__main__</span>
+        <span class="funcname">test</span>
+        <span class="funcmenu"><span class="clickable" onclick="javascript:hideLines('1')" id="menu1">collapse</span></span>
+    </div>
+    <div id="seq1">
+<table  class="module-__main__ func-__main__-test">
+
+<tr><td class="linenocell">3</td><td class="codecell">def test():
+</td></tr>
+
+<tr><td class="linenocell">4</td><td class="codecell">    urlparse.urlparse(&#39;http://www.cwi.nl:80/%7Eguido/Python.html&#39;)
+</td></tr>
+
+</table>
+<div class="callstack callindent">
+    <div class="funcheader module-urlparse func-urlparse-urlparse">
+        <span class="modulename">urlparse</span>
+        <span class="funcname">urlparse</span>
+        <span class="funcmenu"><span class="clickable" onclick="javascript:hideLines('3')" id="menu3">collapse</span></span>
+    </div>
+    <div id="seq3">
+<table  class="module-urlparse func-urlparse-urlparse">
+
+<tr><td class="linenocell">123</td><td class="codecell">def urlparse(url, scheme=&#39;&#39;, allow_fragments=True):
+</td></tr>
+
+<tr><td class="linenocell">129</td><td class="codecell">    tuple = urlsplit(url, scheme, allow_fragments)
+</td></tr>
+
+</table>
+<div class="callstack callindent">
+    <div class="funcheader module-urlparse func-urlparse-urlsplit">
+        <span class="modulename">urlparse</span>
+        <span class="funcname">urlsplit</span>
+        <span class="funcmenu"><span class="clickable" onclick="javascript:hideLines('5')" id="menu5">collapse</span></span>
+    </div>
+    <div id="seq5">
+<table  class="module-urlparse func-urlparse-urlsplit">
+
+<tr><td class="linenocell">154</td><td class="codecell">def urlsplit(url, scheme=&#39;&#39;, allow_fragments=True):
+</td></tr>
+
+<tr><td class="linenocell">160</td><td class="codecell">    allow_fragments = bool(allow_fragments)
+</td></tr>
+
+<tr><td class="linenocell">161</td><td class="codecell">    key = url, scheme, allow_fragments, type(url), type(scheme)
+</td></tr>
+
+<tr><td class="linenocell">162</td><td class="codecell">    cached = _parse_cache.get(key, None)
+</td></tr>
+
+<tr><td class="linenocell">163</td><td class="codecell">    if cached:
+</td></tr>
+
+<tr><td class="linenocell">165</td><td class="codecell">    if len(_parse_cache) &gt;= MAX_CACHE_SIZE: # avoid runaway growth
+</td></tr>
+
+<tr><td class="linenocell">167</td><td class="codecell">    netloc = query = fragment = &#39;&#39;
+</td></tr>
+
+<tr><td class="linenocell">168</td><td class="codecell">    i = url.find(&#39;:&#39;)
+</td></tr>
+
+<tr><td class="linenocell">169</td><td class="codecell">    if i &gt; 0:
+</td></tr>
+
+<tr><td class="linenocell">170</td><td class="codecell">        if url[:i] == &#39;http&#39;: # optimize the common case
+</td></tr>
+
+<tr><td class="linenocell">171</td><td class="codecell">            scheme = url[:i].lower()
+</td></tr>
+
+<tr><td class="linenocell">172</td><td class="codecell">            url = url[i+1:]
+</td></tr>
+
+<tr><td class="linenocell">173</td><td class="codecell">            if url[:2] == &#39;//&#39;:
+</td></tr>
+
+<tr><td class="linenocell">174</td><td class="codecell">                netloc, url = _splitnetloc(url, 2)
+</td></tr>
+
+</table>
+<div class="callstack callindent">
+    <div class="funcheader module-urlparse func-urlparse-_splitnetloc">
+        <span class="modulename">urlparse</span>
+        <span class="funcname">_splitnetloc</span>
+        <span class="funcmenu"><span class="clickable" onclick="javascript:hideLines('19')" id="menu19">collapse</span></span>
+    </div>
+    <div id="seq19">
+<table  class="module-urlparse func-urlparse-_splitnetloc">
+
+<tr><td class="linenocell">146</td><td class="codecell">def _splitnetloc(url, start=0):
+</td></tr>
+
+<tr><td class="linenocell">147</td><td class="codecell">    delim = len(url)   # position of end of domain part of url, default is end
+</td></tr>
+
+<tr><td class="linenocell">148</td><td class="codecell">    for c in &#39;/?#&#39;:    # look for delimiters; the order is NOT important
+</td></tr>
+
+<tr><td class="linenocell">149</td><td class="codecell">        wdelim = url.find(c, start)        # find first of this delim
+</td></tr>
+
+<tr><td class="linenocell">150</td><td class="codecell">        if wdelim &gt;= 0:                    # if found
+</td></tr>
+
+<tr><td class="linenocell">151</td><td class="codecell">            delim = min(delim, wdelim)     # use earliest delim position
+</td></tr>
+
+<tr><td class="linenocell">148</td><td class="codecell">    for c in &#39;/?#&#39;:    # look for delimiters; the order is NOT important
+</td></tr>
+
+<tr><td class="linenocell">149</td><td class="codecell">        wdelim = url.find(c, start)        # find first of this delim
+</td></tr>
+
+<tr><td class="linenocell">150</td><td class="codecell">        if wdelim &gt;= 0:                    # if found
+</td></tr>
+
+<tr><td class="linenocell">148</td><td class="codecell">    for c in &#39;/?#&#39;:    # look for delimiters; the order is NOT important
+</td></tr>
+
+<tr><td class="linenocell">149</td><td class="codecell">        wdelim = url.find(c, start)        # find first of this delim
+</td></tr>
+
+<tr><td class="linenocell">150</td><td class="codecell">        if wdelim &gt;= 0:                    # if found
+</td></tr>
+
+<tr><td class="linenocell">148</td><td class="codecell">    for c in &#39;/?#&#39;:    # look for delimiters; the order is NOT important
+</td></tr>
+
+<tr><td class="linenocell">152</td><td class="codecell">    return url[start:delim], url[delim:]   # return (domain, rest)
+</td></tr>
+
+</table>
+
+    </div> <!-- end of seq -->
+</div> <!-- end of callstack -->
+<table  class="module-urlparse func-urlparse-urlsplit">
+
+<tr><td class="linenocell">175</td><td class="codecell">            if allow_fragments and &#39;#&#39; in url:
+</td></tr>
+
+<tr><td class="linenocell">177</td><td class="codecell">            if &#39;?&#39; in url:
+</td></tr>
+
+<tr><td class="linenocell">179</td><td class="codecell">            v = SplitResult(scheme, netloc, url, query, fragment)
+</td></tr>
+
+</table>
+<div class="callstack callindent">
+    <div class="funcheader module-namedtuple_SplitResult func-namedtuple_SplitResult-__new__">
+        <span class="modulename">namedtuple_SplitResult</span>
+        <span class="funcname">__new__</span>
+        <span class="funcmenu"><span class="clickable" onclick="javascript:hideLines('37')" id="menu37">collapse</span></span>
+    </div>
+    <div id="seq37">
+<table  class="module-namedtuple_SplitResult func-namedtuple_SplitResult-__new__">
+
+<tr><td class="linenocell">8</td><td class="codecell"></td></tr>
+
+<tr><td class="linenocell">9</td><td class="codecell"></td></tr>
+
+</table>
+
+    </div> <!-- end of seq -->
+</div> <!-- end of callstack -->
+<table  class="module-urlparse func-urlparse-urlsplit">
+
+<tr><td class="linenocell">180</td><td class="codecell">            _parse_cache[key] = v
+</td></tr>
+
+<tr><td class="linenocell">181</td><td class="codecell">            return v
+</td></tr>
+
+</table>
+
+    </div> <!-- end of seq -->
+</div> <!-- end of callstack -->
+<table  class="module-urlparse func-urlparse-urlparse">
+
+<tr><td class="linenocell">130</td><td class="codecell">    scheme, netloc, url, query, fragment = tuple
+</td></tr>
+
+<tr><td class="linenocell">131</td><td class="codecell">    if scheme in uses_params and &#39;;&#39; in url:
+</td></tr>
+
+<tr><td class="linenocell">134</td><td class="codecell">        params = &#39;&#39;
+</td></tr>
+
+<tr><td class="linenocell">135</td><td class="codecell">    return ParseResult(scheme, netloc, url, params, query, fragment)
+</td></tr>
+
+</table>
+<div class="callstack callindent">
+    <div class="funcheader module-namedtuple_ParseResult func-namedtuple_ParseResult-__new__">
+        <span class="modulename">namedtuple_ParseResult</span>
+        <span class="funcname">__new__</span>
+        <span class="funcmenu"><span class="clickable" onclick="javascript:hideLines('47')" id="menu47">collapse</span></span>
+    </div>
+    <div id="seq47">
+<table  class="module-namedtuple_ParseResult func-namedtuple_ParseResult-__new__">
+
+<tr><td class="linenocell">8</td><td class="codecell"></td></tr>
+
+<tr><td class="linenocell">9</td><td class="codecell"></td></tr>
+
+</table>
+
+    </div> <!-- end of seq -->
+</div> <!-- end of callstack -->
+    </div> <!-- end of seq -->
+</div> <!-- end of callstack -->
+    </div> <!-- end of seq -->
+</div> <!-- end of callstack -->
+            
+
+        </div> <!-- end of calltrace -->
+    </div> <!-- end of leftbox -->
+</div> <!-- end of container -->
+
+
+<div id="modulemenu">
+
+<div class="modulemenu">
+    <div id="abcde" class="modulebutton clickable btn-module-__main__"
+          onclick="javascript:hideTrace(this, 'module-__main__')">__main__</div>
+    
+        <div class="funcbutton clickable btn-func-__main__-test btn-module-__main__"
+          onclick="javascript:hideTrace(this, 'func-__main__-test')">test</div>
+    
+</div>
+
+<div class="modulemenu">
+    <div id="abcde" class="modulebutton clickable btn-module-namedtuple_ParseResult"
+          onclick="javascript:hideTrace(this, 'module-namedtuple_ParseResult')">namedtuple_ParseResult</div>
+    
+        <div class="funcbutton clickable btn-func-namedtuple_ParseResult-__new__ btn-module-namedtuple_ParseResult"
+          onclick="javascript:hideTrace(this, 'func-namedtuple_ParseResult-__new__')">__new__</div>
+    
+</div>
+
+<div class="modulemenu">
+    <div id="abcde" class="modulebutton clickable btn-module-namedtuple_SplitResult"
+          onclick="javascript:hideTrace(this, 'module-namedtuple_SplitResult')">namedtuple_SplitResult</div>
+    
+        <div class="funcbutton clickable btn-func-namedtuple_SplitResult-__new__ btn-module-namedtuple_SplitResult"
+          onclick="javascript:hideTrace(this, 'func-namedtuple_SplitResult-__new__')">__new__</div>
+    
+</div>
+
+<div class="modulemenu">
+    <div id="abcde" class="modulebutton clickable btn-module-urlparse"
+          onclick="javascript:hideTrace(this, 'module-urlparse')">urlparse</div>
+    
+        <div class="funcbutton clickable btn-func-urlparse-_splitnetloc btn-module-urlparse"
+          onclick="javascript:hideTrace(this, 'func-urlparse-_splitnetloc')">_splitnetloc</div>
+    
+        <div class="funcbutton clickable btn-func-urlparse-urlparse btn-module-urlparse"
+          onclick="javascript:hideTrace(this, 'func-urlparse-urlparse')">urlparse</div>
+    
+        <div class="funcbutton clickable btn-func-urlparse-urlsplit btn-module-urlparse"
+          onclick="javascript:hideTrace(this, 'func-urlparse-urlsplit')">urlsplit</div>
+    
+</div>
+
+
+</div>
+
+</div> <!-- end of main -->
+</body>
+</html>
+

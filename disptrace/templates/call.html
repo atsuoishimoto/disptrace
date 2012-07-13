@@ -1,0 +1,7 @@
+
+<table  class="module-{{call.modulename.replace(".", "-")}} func-{{call.modulename.replace(".", "-")}}-{{call.funcname.replace(".", "-")}}">
+{% for lineno, line in lines %}
+<tr><td class="linenocell">{{lineno}}</td><td class="codecell">{{line}}</td></tr>
+{% endfor %}
+</table>
+

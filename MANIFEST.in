@@ -1,2 +1,6 @@
 include README.rst
+include disptrace/templates/beginstack.html
+include disptrace/templates/call.html
+include disptrace/templates/endstack.html
+include disptrace/templates/page.html
 

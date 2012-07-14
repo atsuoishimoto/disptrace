@@ -9,11 +9,12 @@ setup(
     name='disptrace',
     version='0.2',
     packages=['disptrace'],
-    data_files=[('disptrace/templates', (
-        'disptrace/templates/beginstack.html',
-        'disptrace/templates/call.html',
-        'disptrace/templates/endstack.html',
-        'disptrace/templates/page.html',))],
+    package_data={
+        'disptrace':[
+            'templates/beginstack.html',
+            'templates/call.html',
+            'templates/endstack.html',
+            'templates/page.html']},
     description = 'Generate Python trace log in HTML',
     long_description = read('README.rst'),
     author = 'Atsuo Ishimoto',

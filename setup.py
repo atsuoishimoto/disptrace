@@ -7,7 +7,7 @@ def read(fname):
 
 setup(
     name='disptrace',
-    version='0.1',
+    version='0.2',
     packages=['disptrace'],
     data_files=[('disptrace/templates', (
         'disptrace/templates/beginstack.html',

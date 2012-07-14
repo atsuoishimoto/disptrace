@@ -36,39 +36,3 @@ Unixes, ';' in Windows).
 
 ignoremodule list of modules or packages to ignore. Each modules should
 be delimited by ',' character.
-
--------
-Classes
--------
-
-.. class:: DispTrace 
-
-   Derived from trace.Trace class in Python standard library.
-
-   .. method:: __init__(ignoremods=(), ignoredirs=())
-
-      :param ignoremods: list of modules or packages to ignore.
-      :param ignoredirs: list of directories whose modules or packages should be ignored.
-
-   .. method:: run(cmd)
-
-      Execute the command and gather statistics from the execution with
-      the current tracing parameters. cmd must be a string or code
-      object, suitable for passing into exec().
-
-   .. method:: runctx(cmd, globals=None, locals=None)
-
-      Execute the command and gather statistics from the execution with
-      the current tracing parameters, in the defined global and local
-      environments. If not defined, globals and locals default to empty
-      dictionaries.
-
-   .. method:: runfunc(func, *args, **kwds)
-
-      Call func with the given arguments under control of the Trace
-      object with the current tracing parameters.
-
-   .. method:: render()
-
-      return HTML format string of execused line of codes.
-

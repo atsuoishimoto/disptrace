@@ -62,6 +62,16 @@ class TraceCall:
 
 
 class DispTrace(trace.Trace):
+    """
+    Derived from trace.Trace class in Python standard library.
+
+    .. method:: __init__(ignoremods=(), ignoredirs=())
+
+      :param ignoremods: list of modules or packages to ignore.
+      :param ignoredirs: list of directories whose modules or packages should 
+                         be ignored.
+    """
+
     env = Environment(
         loader=PackageLoader('disptrace', 'templates'),
         autoescape=True,
@@ -146,6 +156,8 @@ ignoremodule=
         return trace.Trace.runfunc(self, func, *args, **kw)
 
     def render(self):
+        """ return HTML format string of execused line of codes."""
+
         stack = []
         page = []
         lines = []

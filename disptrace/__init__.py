@@ -1,5 +1,6 @@
 import trace, os, sys, threading, linecache, datetime, ConfigParser, StringIO
 from jinja2 import Environment, PackageLoader
+from elsefinder import ImpliedElseFinder
 
 def traceiter(call):
     iters = [iter(call._lines)]
@@ -182,6 +183,13 @@ ignoremodule=
                 lines.append((call.lineno, line))
             elif why == 'line':
                 filename, lineno = args
+                
+                # if we're on an else line, drop the missing else back in
+                implied_else_lineno = ImpliedElseFinder(filename).implied_else_line(lineno)
+                if implied_else_lineno:
+                    else_line = unicode(linecache.getline(filename, implied_else_lineno), 'utf-8', 'replace')
+                    lines.append((implied_else_lineno, else_line))
+
                 if filename and lineno:
                     line = unicode(linecache.getline(filename, lineno), 'utf-8', 'replace')
                 else:

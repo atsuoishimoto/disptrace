@@ -7,7 +7,7 @@ def read(fname):
 
 setup(
     name='disptrace',
-    version='0.3',
+    version='0.4',
     packages=['disptrace'],
     package_data={
         'disptrace':[

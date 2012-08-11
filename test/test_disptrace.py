@@ -22,6 +22,12 @@ def func4():
 def func5():
     raise Exception()
 
+def func_if(f):
+    if f:
+        a = 1
+    else:
+        b = 1
+
 class TestTrace:
     def test_trace(self):
         t = disptrace.DispTrace()
@@ -75,6 +81,18 @@ class TestTrace:
         assert ('line', (__file__, func4.func_code.co_firstlineno+3)) == calls.next()
         assert ('line', (__file__, func4.func_code.co_firstlineno+4)) == calls.next()
         assert ('return', (__file__, func4.func_code.co_firstlineno+4)) == calls.next()
+
+    def testIf(self):
+        t = disptrace.DispTrace()
+        t.runfunc(func_if, False)
+
+        calls = iter(disptrace.TraceCall.roots[0])
+        (why, (obj,)) = calls.next()
+        assert why == 'call'
+        assert ('line', (__file__, func_if.func_code.co_firstlineno+1)) == calls.next()
+        assert ('line', (__file__, func_if.func_code.co_firstlineno+3)) == calls.next()
+        assert ('line', (__file__, func_if.func_code.co_firstlineno+4)) == calls.next()
+        assert ('return', (__file__, func_if.func_code.co_firstlineno+4)) == calls.next()
 
     def testRender(self):
         t = disptrace.DispTrace()

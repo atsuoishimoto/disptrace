@@ -17,7 +17,7 @@ class ImpliedElseFinder(ast.NodeVisitor):
         self.code = CodeManager(filepath)
         self.else_lines = {}
         self.visit(self.code.ast)
-        
+
     def implied_else_line(self, lineno):
         """Main query front-end for this class. Given a line, where is its
         implied else, if any?
@@ -100,6 +100,12 @@ class TraceCall:
             # record the file name and line number of every trace
             filename = frame.f_code.co_filename
             lineno = frame.f_lineno
+
+            if why == 'line':
+                # if we're on an else line, drop the missing else back in
+                implied_else_lineno = ImpliedElseFinder(filename).implied_else_line(lineno)
+                if implied_else_lineno:
+                    self.appendTrace(why, (filename, implied_else_lineno))
 
             self.appendTrace(why, (filename, lineno))
 
@@ -235,12 +241,6 @@ ignoremodule=
             elif why == 'line':
                 filename, lineno = args
                 
-                # if we're on an else line, drop the missing else back in
-                implied_else_lineno = ImpliedElseFinder(filename).implied_else_line(lineno)
-                if implied_else_lineno:
-                    else_line = unicode(linecache.getline(filename, implied_else_lineno), 'utf-8', 'replace')
-                    lines.append((implied_else_lineno, else_line))
-
                 if filename and lineno:
                     line = unicode(linecache.getline(filename, lineno), 'utf-8', 'replace')
                 else:
